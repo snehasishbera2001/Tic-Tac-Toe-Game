@@ -5,6 +5,7 @@ let msgContainer=document.querySelector(".msg_container");
 let msg=document.querySelector("#msg");
 
 let turnO= true;
+let count=0;
 // Player X and Player O
 
 const winPatterns=[[0,1,2],
@@ -19,6 +20,7 @@ const winPatterns=[[0,1,2],
 
 const resetGame=()=>{
     turnO=true;
+    count=0;
     enableBoxes();
     msgContainer.classList.add("hide");
 }
@@ -33,10 +35,21 @@ boxes.forEach((box)=>{
             turnO=true;
         }
         box.disabled=true;
+        count++;
 
-        checkWinner();
+        let isWinner=checkWinner();
+
+        if(count===9 && !isWinner){
+            drawGame();
+        }
     });
 });
+
+const drawGame=()=>{
+    msg.innerText=`Game was Draw. Play again.`;
+    msgContainer.classList.remove("hide");
+    disableBoxes();
+}
 
 const disableBoxes=()=>{
     for(let box of boxes){
