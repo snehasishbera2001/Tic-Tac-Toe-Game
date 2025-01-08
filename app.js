@@ -18,11 +18,17 @@ const winPatterns=[[0,1,2],
 [6,7,8],
 ];
 
-const resetGame=()=>{
-    turnO=true;
-    count=0;
-    enableBoxes();
-    msgContainer.classList.add("hide");
+const disableBoxes=()=>{
+    for(let box of boxes){
+        box.disabled=true;
+    }
+}
+
+const enableBoxes=()=>{
+    for(let box of boxes){
+        box.disabled=false;
+        box.innerText="";
+    }
 }
 
 boxes.forEach((box)=>{
@@ -45,25 +51,6 @@ boxes.forEach((box)=>{
     });
 });
 
-const drawGame=()=>{
-    msg.innerText=`Game was Draw. Play again.`;
-    msgContainer.classList.remove("hide");
-    disableBoxes();
-}
-
-const disableBoxes=()=>{
-    for(let box of boxes){
-        box.disabled=true;
-    }
-}
-
-const enableBoxes=()=>{
-    for(let box of boxes){
-        box.disabled=false;
-        box.innerText="";
-    }
-}
-
 const showWinner=(winner)=>{
     msg.innerText=`Congratulation, Winner is ${winner}`;
     msgContainer.classList.remove("hide");
@@ -83,6 +70,19 @@ const checkWinner=()=>{
         }
     }
 };
+
+const resetGame=()=>{
+    turnO=true;
+    count=0;
+    enableBoxes();
+    msgContainer.classList.add("hide");
+}
+
+const drawGame=()=>{
+    msg.innerText=`Game was Draw. Play again.`;
+    msgContainer.classList.remove("hide");
+    disableBoxes();
+}
 
 newGameBtn.addEventListener("click",resetGame);
 resetBtn.addEventListener("click",resetGame);
